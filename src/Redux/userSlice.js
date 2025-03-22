@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
@@ -15,3 +15,22 @@ export const fetchUser = createAsyncThunk(
     }
 )
 
+const userSlice = createSlice({
+    name:'user',
+    initialState:{ users: [], status: "idle", error: null },
+    extraReducers: (builder) =>{
+            builder.addCase(fetchUser.pending, (state)=>{
+                state.status = "loading"; // API call started
+            })
+            .addCase(fetchUser.fulfilled, (state,action)=>{
+                state.status = "Success"; // API call Completed
+                state.users = action.payload;
+            })
+            .addCase(fetchUser.rejected, (state, action)=>{
+                state.status = "Rejected" // API call failed
+                state.error = action.payload;
+            })
+    }
+})
+
+export default userSlice.reducer;
