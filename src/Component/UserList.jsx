@@ -16,18 +16,19 @@ const UserList = () => {
 
       {status === "loading" && <p>Loading... ⏳</p>}
       {status === "Rejected" && <p>Error: {error} ❌</p>}
-      {//console.log(JSON.stringify(users))
-      console.log(status)
+      {
+        //console.log(JSON.stringify(users))
+        console.log(status)
       }
       {status === "Success" && (
-  <ul>
-    {users?.map((user) => (
-      <li key={user.id}>
-        {user.name} - {user.email}
-      </li>
-    ))}
-  </ul>
-)}
+        <ul>
+          {users?.map((user) => (
+            <li key={user.id}>
+              {user.name} - {user.email}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
